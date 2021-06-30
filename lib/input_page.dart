@@ -77,7 +77,7 @@ class _InputPageState extends State<InputPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('180', style: kNumberTextStyle),
+                          Text(height.toString(), style: kNumberTextStyle),
                           SliderTheme(
                             data: SliderTheme.of(context).copyWith(
                               inactiveTrackColor: Color(0xFF8D8E98),
