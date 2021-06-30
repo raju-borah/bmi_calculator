@@ -1,6 +1,11 @@
 # bmi
 
-A new Flutter project.
+BMi Calculator
+This project was build for the undersatnding of the flutter components and basic concepts like:
+
+- buttons
+- routes
+- and many more
 
 ## Getting Started
 
