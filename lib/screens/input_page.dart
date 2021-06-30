@@ -1,9 +1,13 @@
+import 'package:bmi/components/bottom_button.dart';
 import 'package:bmi/constants.dart';
-import 'package:bmi/icon_content.dart';
-import 'package:bmi/reusable_card.dart';
-import 'package:bmi/round_icon_button.dart';
+import 'package:bmi/components/icon_content.dart';
+import 'package:bmi/components/reusable_card.dart';
+import 'package:bmi/components/round_icon_button.dart';
+import 'package:bmi/screens/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../calculator.dart';
 
 enum Gender { male, female, none }
 
@@ -76,14 +80,17 @@ class _InputPageState extends State<InputPage> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(height.toString(), style: kNumberTextStyle),
+                          Text('cm', style: kLabelTextStyle),
                           SliderTheme(
                             data: SliderTheme.of(context).copyWith(
                               inactiveTrackColor: Color(0xFF8D8E98),
                               activeTrackColor: Colors.white,
-                              thumbColor: Color(0xFFEB1555),
-                              overlayColor: Color(0x29EB1555),
+                              thumbColor: Color(0xFF6942db),
+                              overlayColor: Color(0x299570ff),
                               thumbShape: RoundSliderThumbShape(
                                   enabledThumbRadius: 15.0),
                               overlayShape:
@@ -117,14 +124,20 @@ class _InputPageState extends State<InputPage> {
                           'WEIGHT',
                           style: kLabelTextStyle,
                         ),
-                        Text(
-                          weight.toString(),
-                          style: kNumberTextStyle,
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.baseline,
                           textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              weight.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Text('Kg', style: kLabelTextStyle),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             RoundIconButton(
                                 icon: FontAwesomeIcons.minus,
@@ -196,12 +209,22 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kBottomConatinerColour,
-            margin: EdgeInsets.only(top: 20),
-            width: double.infinity,
-            height: kBottomContainerHeight,
-          )
+          BottomButton(
+            buttonTitle: 'CALCULATE',
+            onTap: () {
+              Calculator calc = Calculator(height: height, weight: weight);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
