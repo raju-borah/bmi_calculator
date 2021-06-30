@@ -1,6 +1,6 @@
 # bmi
 
-BMi Calculator
+BMI Calculator.
 This project was build for the undersatnding of the flutter components and basic concepts like:
 
 - buttons
